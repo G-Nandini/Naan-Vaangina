@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naan Vaangina — Honest student finds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F6FB;
+    --rule:#C9D6EA;
+    --ink:#1F2A44;
+    --ink-soft:#4A5876;
+    --highlight-yellow:#FFD84D;
+    --highlight-mint:#2EC4B6;
+    --highlight-pink:#FF8FA3;
+    --card:#FFFFFF;
+    --margin-red:#E4572E;
+    max-width:100%;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(var(--paper) 0 31px, var(--rule) 31px 32px);
+    background-attachment:local;
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.6;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    top:0; bottom:0; left:64px;
+    width:2px;
+    background:var(--margin-red);
+    opacity:.35;
+    z-index:0;
+  }
+
+  .wrap{max-width:840px; margin:0 auto; padding:0 28px 28px 88px; position:relative; z-index:1;}
+  @media (max-width:640px){
+    body::before{left:28px;}
+    .wrap{padding:0 20px 20px 44px;}
+  }
+
+  header{padding:56px 0 24px;}
+  .tab{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:6px 12px;
+    border-radius:2px;
+    margin-bottom:18px;
+  }
+  h1.site-title{
+    font-family:'Kalam', cursive;
+    font-weight:700;
+    font-size:clamp(40px, 8vw, 64px);
+    margin:0 0 6px;
+    line-height:1;
+  }
+  .site-title .dot{color:var(--margin-red);}
+  .tagline{
+    font-size:17px;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+    max-width:52ch;
+  }
+
+  nav{display:flex; gap:18px; flex-wrap:wrap; font-family:'JetBrains Mono', monospace; font-size:13px; margin-bottom:8px;}
+  nav a{color:var(--ink); text-decoration:none; border-bottom:2px solid var(--highlight-mint); padding-bottom:2px;}
+  nav a:hover{border-color:var(--margin-red);}
+
+  .disclosure-strip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    background:rgba(46,196,182,.12);
+    border:1px dashed var(--ink-soft);
+    padding:10px 14px;
+    border-radius:4px;
+    margin:28px 0 8px;
+  }
+
+  section{margin-top:64px;}
+  h2.section-head{
+    font-family:'Kalam', cursive;
+    font-size:28px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  h2.section-head .num{font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--margin-red);}
+
+  .posts{display:grid; gap:22px;}
+  .post-card{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:22px 24px;
+    box-shadow:3px 3px 0 var(--rule);
+  }
+  .post-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:8px;
+  }
+  .post-title{
+    font-family:'Kalam', cursive;
+    font-size:24px;
+    margin:0 0 10px;
+    cursor:pointer;
+  }
+  .hl{
+    background-image:linear-gradient(120deg, var(--highlight-yellow) 0%, var(--highlight-yellow) 100%);
+    background-repeat:no-repeat;
+    background-size:100% .45em;
+    background-position:0 78%;
+    padding:0 2px;
+  }
+  .hl.mint{background-image:linear-gradient(120deg, var(--highlight-mint) 0%, var(--highlight-mint) 100%); background-size:100% .4em;}
+  .hl.pink{background-image:linear-gradient(120deg, var(--highlight-pink) 0%, var(--highlight-pink) 100%); background-size:100% .4em;}
+
+  .excerpt{color:var(--ink-soft); margin:0 0 12px;}
+  .full{display:none; margin-top:10px; padding-top:14px; border-top:1px dashed var(--rule);}
+  .full.open{display:block;}
+  .full p{margin:0 0 12px;}
+  .toggle-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    background:none;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toggle-btn:hover{background:var(--ink); color:var(--paper);}
+
+  .buy-row{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin-top:14px; padding-top:14px; border-top:1px dashed var(--rule);
+  }
+  .price-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    padding:4px 10px;
+    border-radius:3px;
+  }
+  .buy-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    background:var(--margin-red);
+    color:#fff;
+    padding:8px 16px;
+    border-radius:3px;
+    font-weight:600;
+  }
+  .buy-btn:hover{background:var(--ink);}
+
+  .about-card{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:26px 28px;
+    box-shadow:3px 3px 0 var(--rule);
+  }
+  .about-card p{margin:0 0 14px;}
+  .about-card p:last-child{margin-bottom:0;}
+
+  footer{
+    margin-top:80px;
+    padding:24px 0 40px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--rule);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="tab">student budget finds</span>
+    <h1 class="site-title">Naan Vaangina<span class="dot">.</span></h1>
+    <p class="tagline">Honest reviews of stuff I actually bought — hostel life, coding nights, and reels shoots on a student budget. No filter, no sponsor pressure.</p>
+    <nav>
+      <a href="#posts">Posts</a>
+      <a href="#about">About &amp; Disclosure</a>
+      <a href="#contact">Say Hi</a>
+    </nav>
+    <div class="disclosure-strip">As an Amazon Associate I earn from qualifying purchases. Full disclosure below ↓</div>
+  </header>
+
+  <section id="posts">
+    <h2 class="section-head"><span class="num">01</span> Latest finds</h2>
+    <div class="posts">
+
+      <article class="post-card">
+        <div class="post-meta">Study Gadgets · 6 min read</div>
+        <h3 class="post-title" onclick="toggle(this)">Wireless earphones that survived 3 hostel drops <span class="hl">(and my online classes)</span></h3>
+        <p class="excerpt">Semester start-la naan cheap earphones vaangi, rendu weeks-ல mudinjuduchu. Idha try panna appuram, mic clarity-um battery-um vera level.</p>
+        <div class="full">
+          <p>Okay so real talk — na muன்னாடி vaangina earphones rendu weeks kooda vaala, oru side stop aiduchu. Adhukku appuram konjo research pannitu idha try panniten, and honestly 4 months usage-la still going strong.</p>
+          <p>Best part: online class-la mic clarity nalla iruku, professor kேட்கறாங்க properly. Battery ஒரு full day easy-a poidum, hostel-la charger-a thedi ovvoru break-ilayum ஓட வேண்டாம். Bass konjo weak dhaan aana calls and lectures-ku perfect.</p>
+          <p>Konjo negative sollanumna — case konjo cheap-ah feel aagum, aana adha oru pouch-la potukalam. Idha ₹1000 kulla range-la best value nu nu confidently sollுவேன்.</p>
+        </div>
+        <div class="buy-row">
+          <span class="price-tag">₹501</span>
+          <a class="buy-btn" href="https://amzn.in/d/07lYcrkq" target="_blank" rel="noopener">Check price on Amazon →</a>
+        </div>
+      </article>
+
+      <article class="post-card">
+        <div class="post-meta">Coding Setup · 5 min read</div>
+        <h3 class="post-title" onclick="toggle(this)">Laptop stand-a vaanginadhu, en neck pain-a fix panichu <span class="hl mint">(coding sessions)</span></h3>
+        <p class="excerpt">Room-la floor-la irundhu code panni panni neck pain start aachu. Idha add pannadhukku appuram posture completely maari poyiduchu.</p>
+        <div class="full">
+          <p>Engineering final year projects, hackathons, assignments — ellame laptop munnadi hours-a hours amarndhu iருக்கணும். Bed-la kavizhndhu type panna, neck vali start aachu, appo dhaan idha order pannen.</p>
+          <p>Adjustable height, foldable, bag-la easy-a fit aagum. Laptop cooling-um konjo better aaguthu, fan sound kammi aachu. Video calls, interview prep ella-ikkum eye-level-a screen vandhudum, professional-ah feel aagum.</p>
+          <p>Ore concern — completely metal illa, aana ₹600 range-la idha vida better build quality kedaikathu nu nu feel pannaren.</p>
+        </div>
+        <div class="buy-row">
+          <span class="price-tag">₹490</span>
+          <a class="buy-btn" href="https://amzn.in/d/0eOOGdRy" target="_blank" rel="noopener">Check price on Amazon →</a>
+        </div>
+      </article>
+
+      <article class="post-card">
+        <div class="post-meta">Content Creation · 4 min read</div>
+        <h3 class="post-title" onclick="toggle(this)">Phone tripod for reels — <span class="hl pink">no more asking roommate to hold phone</span></h3>
+        <p class="excerpt">Insta content start pannadhukku appuram, stable shot edukanumna oru tripod venum-nu realize aachu. Idha budget-la best option.</p>
+        <div class="full">
+          <p>Naan reels shoot pannradhukku aaramichadhukku appuram, first problem — camera shake. Roommate-a evlo naal kேட்கமுடியும். So oru budget tripod research panni idha vாanginen.</p>
+          <p>Remote shutter kooda vaidhukanga, so timer set panni ella-ikkum edit-a start pannalam. Flexible legs iருக்கறதுna, table-லேயும், railing-லேயும் easy-a fix pannalam. Height konjo short dhaan, floor shoots-ku perfect, aana full standing shot venumna oru extra riser venum.</p>
+        </div>
+        <div class="buy-row">
+          <span class="price-tag">₹195</span>
+          <a class="buy-btn" href="https://amzn.in/d/02uZBg7a" target="_blank" rel="noopener">Check price on Amazon →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-head"><span class="num">02</span> About &amp; Disclosure</h2>
+    <div class="about-card">
+      <p>Hi, naan Nandhu — CSE final year student, part-time content creator, full-time overthinker about whether a ₹500 gadget is worth it. Idha site-la naan real-a use panra, hostel-ku, coding-ku, content creation-ku helpful-ah irunda products mattum review pannuven. Ads illa, sponsor pressure illa — vaangina products mattum.</p>
+      <p><strong>Affiliate disclosure:</strong> Naan Vaangina is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.in. As an Amazon Associate I earn from qualifying purchases — idhu unga-ku extra cost onnum illa, but naan support panna oru chinna way.</p>
+      <p>Every product-um naan use panniyadhu or serious-ah research pannitu recommend panradhu mattum. Opinion enakku honest-a irukum, negative points-a hide panna maten.</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    naanvaangina.blog · say hi on Instagram · updated weekly
+  </footer>
+
+</div>
+
+<script>
+function toggle(el){
+  const full = el.closest('.post-card').querySelector('.full');
+  full.classList.toggle('open');
+}
+function alertPlaceholder(){
+  alert('Replace this href with your real Amazon affiliate link (with your tracking tag) before publishing!');
+  return false;
+}
+</script>
+</body>
+</html>
